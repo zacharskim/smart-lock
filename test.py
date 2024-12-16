@@ -13,6 +13,7 @@ load_dotenv()
 # Access the environment variables
 token = os.getenv('SWITCHBOT_API_TOKEN')
 secret = os.getenv('SWITCHBOT_API_SECRET')
+lockId = os.getenv('SWITCHBOT_LOCK_PRO_ID')
 # Declare empty header dictionary
 apiHeader = {}
 # open token
@@ -45,6 +46,28 @@ def get_devices():
         return None
 
 
+def lock():
+    url = f'https://api.switch-bot.com/v1.1/devices/{lockId}/commands'
+    payLoad = {"command": "lock", "parameter": "default", "commandType": "command"}
+    res = requests.post(url, headers=apiHeader, json=payLoad)
+    if res.status_code == 200:
+        print("locked!")
+    else:
+        print(f'Error: {res.status_code} - {res.text}')
+        return None
+
+def unlock():
+    url = f'https://api.switch-bot.com/v1.1/devices/{lockId}/commands'
+    payLoad = {"command": "unlock", "parameter": "default", "commandType": "command"}
+    res = requests.post(url, headers=apiHeader, json=payLoad)
+    if res.status_code == 200:
+        print("unlocked!")
+    else:
+        print(f'Error: {res.status_code} - {res.text}...')
+        return None
+    
+
 if __name__ == "__main__":
-    get_devices()
+    # get_devices()
+    unlock()
 

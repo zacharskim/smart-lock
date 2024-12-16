@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+devices.txt
+getDevicesRes.json
+
 # C extensions
 *.so
 
